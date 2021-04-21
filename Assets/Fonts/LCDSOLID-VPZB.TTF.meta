@@ -1,0 +1,21 @@
+fileFormatVersion: 2
+guid: 1daccb2febaf14948af94a1553aadd32
+timeCreated: 1619006623
+licenseType: Free
+TrueTypeFontImporter:
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: LCD Solid
+  fontNames:
+  - LCD Solid
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
