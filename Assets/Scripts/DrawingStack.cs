@@ -4,21 +4,6 @@ using UnityEngine;
 
 public class DrawingStack : MonoBehaviour {
 
-	// custom Card variable which has consists of a value and suit
-	struct Card
-	{
-		public int value, suit;
-
-		/*
-		value: 1-13 (Ace - King)
-
-		suit: 0 = clubs
-			  1 = diamonds
-			  2 = hearts
-			  3 = spades
-		*/
-	}
-
 	// Empty list of cards that will be filled in GenerateDeck()
 	List<Card> deck = new List<Card>();
 
@@ -64,3 +49,4 @@ public class DrawingStack : MonoBehaviour {
 		shuffledDeck = null; // free up memory
     }
 }
+
