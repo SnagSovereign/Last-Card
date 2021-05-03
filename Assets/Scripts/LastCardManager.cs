@@ -4,18 +4,19 @@ using UnityEngine;
 
 public class LastCardManager : MonoBehaviour {
 
-}
+	[SerializeField] Player[] players;
+	[SerializeField] PickupDeck pickupDeck;
 
-struct Card
-{
-	public int value, suit;
+	int playDirection = 1;
+	int currentPlayerTurn = 0;
+	bool gameOver = false;
 
-	/*
-	value: 1-13 (Ace - King)
+	void Start()
+    {
+		pickupDeck.GenerateDeck();
+		pickupDeck.ShuffleDeck();
+		pickupDeck.DealCards(players);
+    }
 
-	suit: 0 = clubs
-		  1 = diamonds
-		  2 = hearts
-		  3 = spades
-	*/
+
 }
