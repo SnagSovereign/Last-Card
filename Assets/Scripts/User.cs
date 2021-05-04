@@ -10,9 +10,11 @@ public class User : Player {
 		spacing = 65f;
 	}
 
-	public Card GetCardAtIndex(int cardIndex)
+	public void PickupButton()
     {
-		return hand[cardIndex];
+		if(myTurn)
+        {
+			AddCard(pickupDeck.PickupCard());
+        }
     }
-	
 }

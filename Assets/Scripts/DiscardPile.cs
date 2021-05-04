@@ -9,7 +9,7 @@ public class DiscardPile : MonoBehaviour {
 
     Image image;
 
-    private void Start()
+    private void Awake()
     {
         image = GetComponent<Image>();
     }
@@ -20,5 +20,10 @@ public class DiscardPile : MonoBehaviour {
         // add the card to the list
         discardPile.Add(card);
         image.sprite = Resources.Load<Sprite>("Sprites/Deck/" + card.value + "_" + card.suit);
+    }
+
+    public Card GetTopCard()
+    {
+        return discardPile[discardPile.Count - 1];
     }
 }

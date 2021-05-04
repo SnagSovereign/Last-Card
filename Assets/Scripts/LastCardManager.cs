@@ -11,18 +11,35 @@ public class LastCardManager : MonoBehaviour {
 	int currentPlayerTurn = 0;
 	bool gameOver = false;
 
-	void Start()
+	private void Start()
+    {
+		SetupGame();
+	}
+
+	private void SetupGame()
     {
 		pickupDeck.GenerateDeck();
 		pickupDeck.ShuffleDeck();
 		pickupDeck.DealCards(players);
-    }
 
-	int NextPlayer()
+		// tell the first player that it is there turn
+		players[currentPlayerTurn].myTurn = true;
+	}
+
+	public void NextPlayer()
+    {
+		currentPlayerTurn = GetNextPlayer();
+
+		// tell the current player that it is their turn
+		players[currentPlayerTurn].myTurn = true;
+	}
+
+	int GetNextPlayer()
 	{
+		// calculate the next player by adding the play direction (1 or -1)
 		int nextPlayer = currentPlayerTurn + playDirection;
 
-		if (nextPlayer < 0)
+		if(nextPlayer < 0)
 		{
 			nextPlayer = players.Length - 1;
 		}

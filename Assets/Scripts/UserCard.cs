@@ -6,26 +6,32 @@ using UnityEngine.EventSystems;
 
 public class UserCard : CardObject, IPointerDownHandler {
 
-	// Use this for initialization
+	[HideInInspector] public Player playerParent;
+
 	void Start()
 	{
+		playerParent = transform.parent.GetComponent<Player>();
 		DisplayCardImage();
 	}
 
 	private void DisplayCardImage()
-    {
-		// gets the sibling index of the card
-		int siblingIndex = transform.GetSiblingIndex();
-		Card cardToDisplay = transform.GetComponentInParent<User>().GetCardAtIndex(siblingIndex);
-		
+    {	
 		GetComponent<Image>().sprite = Resources.Load<Sprite>
 		(
-            "Sprites/Deck/" + cardToDisplay.value + "_" + cardToDisplay.suit
+            "Sprites/Deck/" + thisCard.value + "_" + thisCard.suit
         );
 	}
 
+	// when the user clicks on one of their cards
 	public void OnPointerDown(PointerEventData eventData)
 	{
-		Discard();
+		// check if it is the user's turn
+		if(GetComponentInParent<User>().myTurn)
+        {
+			if(playerParent.ValidCards().Contains(thisCard))
+            {
+				Discard();
+			}
+		}
 	}
 }

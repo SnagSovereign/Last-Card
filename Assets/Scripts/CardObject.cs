@@ -4,10 +4,23 @@ using UnityEngine;
 
 public class CardObject : MonoBehaviour {
 
+	protected Card thisCard;
+	public void SetValueAndSuit(Card card)
+	{
+		thisCard.value = card.value;
+		thisCard.suit = card.suit;
+	}
+
+	public Card GetCard()
+	{
+		return thisCard;
+	}
+
 	protected void Discard()
     {
+		// add the card to the discard pile
+		FindObjectOfType<DiscardPile>().Discard(thisCard);
 		Destroy(gameObject);
-		print("Discard");
     }
 }
 

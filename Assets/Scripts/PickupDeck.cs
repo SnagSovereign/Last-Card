@@ -7,9 +7,21 @@ public class PickupDeck : MonoBehaviour {
 	// Empty list of cards that will be filled in GenerateDeck()
 	List<Card> pickupDeck = new List<Card>();
 
-	public void PickupButton()
+	public Card PickupCard()
     {
-		print("Pickup");
+		// if the pickup deck is empty
+		if(pickupDeck.Count == 0)
+        {
+			// set the pickup deck equal to the discard deck
+			// set the discard deck equal to just the topmost deck
+			// shuffle the pickup deck
+        }
+		
+		Card cardToPickup = pickupDeck[pickupDeck.Count - 1];
+
+		pickupDeck.RemoveAt(pickupDeck.Count - 1);
+
+		return cardToPickup;
     }
 	
 	public void GenerateDeck()
