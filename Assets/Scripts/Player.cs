@@ -5,6 +5,7 @@ using UnityEngine;
 public class Player : MonoBehaviour {
 
 	protected float spacing;
+	protected bool myTurn;
 
 	protected List<Card> hand = new List<Card>();
 
@@ -23,7 +24,13 @@ public class Player : MonoBehaviour {
 
 		// set the parent of the card to this player object
 		newCard.transform.SetParent(gameObject.transform, false);
+
     }
+
+	void CentreHand()
+	{
+
+	}
 
 	protected void DiscardCard()
     {
