@@ -23,7 +23,7 @@ public class LastCardManager : MonoBehaviour {
 		pickupDeck.DealCards(players);
 
 		// tell the first player that it is there turn
-		players[currentPlayerTurn].myTurn = true;
+		players[currentPlayerTurn].StartTurn();
 	}
 
 	public void NextPlayer()
@@ -31,7 +31,7 @@ public class LastCardManager : MonoBehaviour {
 		currentPlayerTurn = GetNextPlayer();
 
 		// tell the current player that it is their turn
-		players[currentPlayerTurn].myTurn = true;
+		players[currentPlayerTurn].StartTurn();
 	}
 
 	int GetNextPlayer()

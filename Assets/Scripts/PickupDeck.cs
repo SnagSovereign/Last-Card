@@ -12,7 +12,7 @@ public class PickupDeck : MonoBehaviour {
 		// if the pickup deck is empty
 		if(pickupDeck.Count == 0)
         {
-			// set the pickup deck equal to the discard deck
+			// set the pickup deck equal to the discard pile
 			// set the discard deck equal to just the topmost deck
 			// shuffle the pickup deck
         }
@@ -64,7 +64,7 @@ public class PickupDeck : MonoBehaviour {
     {
 		foreach (Player player in players)
 		{
-			for (int i = 0; i < PlayerPrefs.GetInt("cards"); i++)
+			for (int card = 0; card < PlayerPrefs.GetInt("cards"); card++)
 			{
                 player.AddCard(pickupDeck[pickupDeck.Count - 1]);
                 pickupDeck.RemoveAt(pickupDeck.Count - 1);

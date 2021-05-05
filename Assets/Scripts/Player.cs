@@ -6,7 +6,9 @@ public class Player : MonoBehaviour {
 
 	protected float spacing;
 
-	[HideInInspector] public bool myTurn = false;
+	[HideInInspector]
+	public bool myTurn = false;
+	public List<Card> validCards = new List<Card>();
 
 	LastCardManager manager;
 	protected DiscardPile discardPile;
@@ -20,6 +22,12 @@ public class Player : MonoBehaviour {
 		manager = FindObjectOfType<LastCardManager>();
 		discardPile = FindObjectOfType<DiscardPile>();
 		pickupDeck = FindObjectOfType<PickupDeck>();
+	}
+
+	public void StartTurn()
+	{
+		myTurn = true;
+		CalcValidCards();
 	}
 
 	public void AddCard(Card card)
@@ -42,9 +50,8 @@ public class Player : MonoBehaviour {
 		newCard.SetValueAndSuit(card);
 	}
 
-	public List<Card> ValidCards()
+	public void CalcValidCards()
     {
-		List<Card> validCards = new List<Card>();
 		Card discard = discardPile.GetTopCard();
 
 		foreach(CardObject card in hand)
@@ -54,7 +61,5 @@ public class Player : MonoBehaviour {
 				validCards.Add(card.GetCard());
 			}
 		}
-
-		return validCards;
     }
 }

@@ -28,7 +28,7 @@ public class UserCard : CardObject, IPointerDownHandler {
 		// check if it is the user's turn
 		if(GetComponentInParent<User>().myTurn)
         {
-			if(playerParent.ValidCards().Contains(thisCard))
+			if(playerParent.validCards.Contains(thisCard))
             {
 				Discard();
 			}
