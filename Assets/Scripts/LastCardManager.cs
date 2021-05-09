@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LastCardManager : MonoBehaviour {
 
@@ -8,10 +9,11 @@ public class LastCardManager : MonoBehaviour {
 	[SerializeField] PickupDeck pickupDeck;
 	[SerializeField] GameObject playDirectionArrows;
 	[SerializeField] GameObject pausePanel;
+	[SerializeField] GameObject gameOverPanel;
+	[SerializeField] TMP_Text gameOverText;
 
 	int playDirection = 1;
 	int currentPlayerTurn = 0;
-	bool gameOver = false;
 
 	int pickupCount = 0;
 	[HideInInspector]
@@ -32,6 +34,21 @@ public class LastCardManager : MonoBehaviour {
 
 		// tell the first player that it is there turn
 		players[currentPlayerTurn].StartTurn();
+	}
+
+	public void GameOver()
+    {
+		gameOverPanel.SetActive(true);
+		if(currentPlayerTurn == 0)
+        {
+			// You win
+			gameOverText.text = "You Win!";
+        }
+		else
+        {
+			// You lose
+			gameOverText.text = "You Lose!";
+		}
 	}
 
 	public void NextPlayer()

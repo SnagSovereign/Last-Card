@@ -29,7 +29,6 @@ public class DiscardPile : MonoBehaviour {
 
     public void SuitChange(int newSuit)
     {
-        print("suit change");
         image.sprite = Resources.Load<Sprite>("Sprites/Suits/" + newSuit);
     }
 }

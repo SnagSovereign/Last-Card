@@ -24,7 +24,6 @@ public abstract class Player : MonoBehaviour {
 
 	public void StartTurn()
 	{
-		print(name + "'s turn");
 		myTurn = true;
 
 		// If the previous card was not a power card, proceed as normal
@@ -40,7 +39,7 @@ public abstract class Player : MonoBehaviour {
 
 		if(hand.Count == 0)
         {
-			print(name + " wins the game!");
+			manager.GameOver();
 			// win the game
         }
 		else
@@ -137,7 +136,9 @@ public abstract class Player : MonoBehaviour {
         {
 			foreach (CardObject card in hand)
 			{
-				if (card.GetCard().value == discard.value || card.GetCard().suit == discard.suit || card.GetCard().value == 1)
+				if (card.GetCard().value == discard.value || 
+					card.GetCard().suit == discard.suit || 
+					card.GetCard().value == 1)
 				{
 					validCards.Add(card.GetCard());
 				}
@@ -181,7 +182,6 @@ public abstract class Player : MonoBehaviour {
 			// Ace
 			// Chooses suit
 			SelectSuit();
-			print("Ace was played!");
         }
     }
 
