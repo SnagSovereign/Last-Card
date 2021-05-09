@@ -21,7 +21,7 @@ GameObject:
   - component: {fileID: 224069369090291098}
   - component: {fileID: 222869531095921176}
   - component: {fileID: 114866756921046094}
-  - component: {fileID: 114408784145528298}
+  - component: {fileID: 114059601911907488}
   m_Layer: 0
   m_Name: AICard
   m_TagString: Untagged
@@ -29,7 +29,7 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &114408784145528298
+--- !u!114 &114059601911907488
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
@@ -37,7 +37,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1014799110155674}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 18685d903108c1e469fe89bfca06bda1, type: 3}
+  m_Script: {fileID: 11500000, guid: 125ecdf3f4abb814c9d5b1d50cd60396, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   playerParent: {fileID: 0}
