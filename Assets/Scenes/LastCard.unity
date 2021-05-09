@@ -4118,7 +4118,7 @@ MonoBehaviour:
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_text: "<align=\"center\"><b>RULES</align>\n<size=70>Goal<size=65></b>\nGet rid
-    of all you cards.\n<size=40>\n<size=70>Players<size=65></b>\n2+\n<size=40>\n<size=70><b>Cards<size=65></b>\n5
+    of all your cards.\n<size=40>\n<size=70>Players<size=65></b>\n2+\n<size=40>\n<size=70><b>Cards<size=65></b>\n5
     to 8\n<size=40>\n<size=65>Each player at their turn may play any card from their
     hand that matches the suit, or the value of the card previously played. If a player
     is unable to play any cards in their hand, they have to pickup one card. \r\n\n<size=70><b>Power
@@ -4198,7 +4198,7 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_textInfo:
     textComponent: {fileID: 1583313740}
-    characterCount: 814
+    characterCount: 815
     spriteCount: 0
     spaceCount: 173
     wordCount: 155
@@ -4206,11 +4206,11 @@ MonoBehaviour:
     lineCount: 54
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 1
+  m_havePropertiesChanged: 0
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 1
+  m_isInputParsingRequired: 0
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:

@@ -15,6 +15,8 @@ public abstract class Player : MonoBehaviour {
 	protected List<CardObject> hand = new List<CardObject>();
 	public List<Card> validCards = new List<Card>();
 
+	protected abstract void SelectSuit();
+
 	private void Awake()
     {
 		manager = FindObjectOfType<LastCardManager>();
@@ -26,11 +28,8 @@ public abstract class Player : MonoBehaviour {
 	{
 		myTurn = true;
 
-		// If the previous card was not a power card, proceed as normal
-		if (!CheckForPowerCard())
-        {
-			CalcValidCards(0);
-		}
+		// Check if the previous card was a power card
+		CheckForPowerCard();
 	}
 
 	public void EndTurn()
@@ -48,6 +47,7 @@ public abstract class Player : MonoBehaviour {
 			manager.NextPlayer();
 		}
 	}
+
 
 	public void AddCard(Card card)
     {
@@ -185,40 +185,38 @@ public abstract class Player : MonoBehaviour {
         }
     }
 
-	bool CheckForPowerCard()
+	void CheckForPowerCard()
     {
-		if(manager.skip)
-		{
-			manager.skip = false;
-			EndTurn();
-			return true;
-		}
-		else if(discardPile.GetTopCard().value == 2 && manager.GetPickupCount() != 0)
-        {
-			//Pickup 2
-			// only valid cards to play is a 2
-			CalcValidCards(2);
-			return true;
-        }
-		else if(discardPile.GetTopCard().value == 11 && 
-			   (discardPile.GetTopCard().suit == 0 || 
-			    discardPile.GetTopCard().suit == 3) && 
-				manager.GetPickupCount() != 0)
-        {
-			// Black Jack
-			// Only valid cards to play are a Jack (black or red)
-			CalcValidCards(11);
-			return true;
-        }
-		else if(discardPile.GetTopCard().value == 1)
+		if(discardPile.GetTopCard().value == 1) // Ace
         {
 			// only valid cards are ones that have a suit that matches manager.suit
 			CalcValidCards(1);
-			return true;
+		}
+		else if(discardPile.GetTopCard().value == 2 && manager.GetPickupCount() != 0) // 2
+		{
+			//Pickup 2
+			// only valid cards to play is a 2
+			CalcValidCards(2);
+		}
+		else if (discardPile.GetTopCard().value == 11 &&
+			    (discardPile.GetTopCard().suit == 0 ||
+			     discardPile.GetTopCard().suit == 3) &&
+				 manager.GetPickupCount() != 0)
+		{
+			// Black Jack
+			// Only valid cards to play are a Jack (black or red)
+			CalcValidCards(11);
+		}
+		else if(manager.skip) // 8
+		{
+            // Skip
+            manager.skip = false;
+			EndTurn();
+		}
+		else
+        {
+			// if the previous card was not a power card
+			CalcValidCards(0);
         }
-
-		return false;
     }
-
-	protected abstract void SelectSuit();
 }
