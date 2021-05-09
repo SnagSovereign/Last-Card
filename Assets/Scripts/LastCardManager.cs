@@ -5,7 +5,7 @@ using TMPro;
 
 public class LastCardManager : MonoBehaviour {
 
-	[SerializeField] Player[] players;
+	[SerializeField] List<Player> players;
 	[SerializeField] PickupDeck pickupDeck;
 	[SerializeField] GameObject playDirectionArrows;
 	[SerializeField] GameObject pausePanel;
@@ -28,12 +28,30 @@ public class LastCardManager : MonoBehaviour {
 
 	private void SetupGame()
     {
+		ConfigurePlayers();
 		pickupDeck.GenerateDeck();
 		pickupDeck.ShuffleDeck();
 		pickupDeck.DealCards(players);
 
 		// tell the first player that it is there turn
 		players[currentPlayerTurn].StartTurn();
+	}
+
+	private void ConfigurePlayers()
+    {
+		if(PlayerPrefs.GetInt("players") == 2)
+        {
+            Destroy(players[1].gameObject);
+            players.RemoveAt(1);
+
+            Destroy(players[2].gameObject);
+            players.RemoveAt(2);
+        }
+		else if(PlayerPrefs.GetInt("players") == 3)
+        {
+			Destroy(players[2].gameObject);
+			players.RemoveAt(2);
+		}
 	}
 
 	public void GameOver()
@@ -68,9 +86,9 @@ public class LastCardManager : MonoBehaviour {
 
 		if(nextPlayer < 0)
 		{
-			nextPlayer = players.Length - 1;
+			nextPlayer = players.Count - 1;
 		}
-		else if(nextPlayer > players.Length - 1)
+		else if(nextPlayer > players.Count - 1)
 		{
 			nextPlayer = 0;
 		}

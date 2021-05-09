@@ -67,7 +67,7 @@ public class PickupDeck : MonoBehaviour {
 		shuffledDeck = null; // free up memory
     }
 
-	public void DealCards(Player[] players)
+	public void DealCards(List<Player> players)
     {
 		foreach (Player player in players)
 		{
