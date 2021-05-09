@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 public class DiscardPile : MonoBehaviour {
 
-	List<Card> discardPile = new List<Card>();
+	public List<Card> discardPile = new List<Card>();
 
     Image image;
 
@@ -25,5 +25,11 @@ public class DiscardPile : MonoBehaviour {
     public Card GetTopCard()
     {
         return discardPile[discardPile.Count - 1];
+    }
+
+    public void SuitChange(int newSuit)
+    {
+        print("suit change");
+        image.sprite = Resources.Load<Sprite>("Sprites/Suits/" + newSuit);
     }
 }

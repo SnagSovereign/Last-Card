@@ -6,11 +6,8 @@ using UnityEngine.EventSystems;
 
 public class UserCard : CardObject, IPointerDownHandler {
 
-	[HideInInspector] public Player playerParent;
-
 	void Start()
 	{
-		playerParent = transform.parent.GetComponent<Player>();
 		DisplayCardImage();
 	}
 
@@ -30,7 +27,7 @@ public class UserCard : CardObject, IPointerDownHandler {
         {
 			if(playerParent.validCards.Contains(thisCard))
             {
-				Discard();
+				playerParent.Discard(transform.GetSiblingIndex());
 			}
 		}
 	}

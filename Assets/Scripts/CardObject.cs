@@ -5,6 +5,9 @@ using UnityEngine;
 public class CardObject : MonoBehaviour {
 
 	protected Card thisCard;
+	[HideInInspector]
+	public Player playerParent;
+
 	public void SetValueAndSuit(Card card)
 	{
 		thisCard.value = card.value;
@@ -15,13 +18,6 @@ public class CardObject : MonoBehaviour {
 	{
 		return thisCard;
 	}
-
-	protected void Discard()
-    {
-		// add the card to the discard pile
-		FindObjectOfType<DiscardPile>().Discard(thisCard);
-		Destroy(gameObject);
-    }
 }
 
 public struct Card

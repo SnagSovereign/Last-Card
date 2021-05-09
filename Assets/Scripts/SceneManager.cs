@@ -9,4 +9,10 @@ public class SceneManager : MonoBehaviour {
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(scene);
     }
+
+    public void SwitchActiveState(GameObject obj)
+    {
+        obj.SetActive(!obj.activeSelf);
+    }
+
 }

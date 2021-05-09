@@ -1,8 +1,11 @@
 ﻿using System.Collections;
+using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PickupDeck : MonoBehaviour {
+
+	[SerializeField] DiscardPile discardPile;
 
 	// Empty list of cards that will be filled in GenerateDeck()
 	List<Card> pickupDeck = new List<Card>();
@@ -13,8 +16,12 @@ public class PickupDeck : MonoBehaviour {
 		if(pickupDeck.Count == 0)
         {
 			// set the pickup deck equal to the discard pile
+			pickupDeck = discardPile.discardPile;
 			// set the discard deck equal to just the topmost deck
+			discardPile.discardPile = new List<Card>();
+			discardPile.discardPile.Add(pickupDeck[pickupDeck.Count - 1]);
 			// shuffle the pickup deck
+			ShuffleDeck();
         }
 		
 		Card cardToPickup = pickupDeck[pickupDeck.Count - 1];
@@ -71,8 +78,17 @@ public class PickupDeck : MonoBehaviour {
             }
 		}
 
-		// add card to discard pile
-		FindObjectOfType<DiscardPile>().Discard(pickupDeck[pickupDeck.Count - 1]);
-		pickupDeck.RemoveAt(pickupDeck.Count - 1);
+		// add card to discard pile that is not a power card
+		int[] powerCards = { 1, 2, 8, 10, 11 };
+
+        for (int cardIndex = pickupDeck.Count - 1; cardIndex > 0; cardIndex--)
+		{
+			if(!powerCards.Contains(pickupDeck[cardIndex].value))
+            {
+				FindObjectOfType<DiscardPile>().Discard(pickupDeck[cardIndex]);
+				pickupDeck.RemoveAt(cardIndex);
+				break;
+			}
+		}
 	}
 }

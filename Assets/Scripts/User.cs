@@ -4,17 +4,27 @@ using UnityEngine;
 
 public class User : Player {
 
-	// Use this for initialization
-	void Start () 
-	{
-		spacing = 65f;
-	}
+    [SerializeField] GameObject suitSelectPanel;
 
 	public void PickupButton()
     {
 		if(myTurn)
         {
 			AddCard(pickupDeck.PickupCard());
+			EndTurn();
         }
+    }
+
+    protected override void SelectSuit()
+    {
+        suitSelectPanel.SetActive(true);
+    }
+
+    public void SuitButton(int suit)
+    {
+        manager.ChangeSuit(suit);
+        discardPile.SuitChange(suit);
+        suitSelectPanel.SetActive(false);
+        EndTurn();
     }
 }
