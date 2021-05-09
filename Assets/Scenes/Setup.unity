@@ -192,7 +192,7 @@ GameObject:
   - component: {fileID: 245258018}
   - component: {fileID: 245258019}
   m_Layer: 0
-  m_Name: SetupManager
+  m_Name: PrefsManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

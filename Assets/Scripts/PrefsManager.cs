@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class SetupManager : MonoBehaviour {
+public class PrefsManager : MonoBehaviour {
 
     const string players = "players";
     const string cards = "cards";
