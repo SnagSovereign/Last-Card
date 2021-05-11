@@ -105,7 +105,7 @@ public abstract class Player : MonoBehaviour {
 			{
 				foreach (CardObject card in hand)
 				{
-					if (card.GetCard().suit == manager.GetSuit())
+					if (card.GetCard().suit == manager.GetSuit() || card.GetCard().suit == 1)
 					{
 						validCards.Add(card.GetCard());
 					}
