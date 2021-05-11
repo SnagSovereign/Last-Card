@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class AI : Player {
@@ -68,7 +67,7 @@ public class AI : Player {
 
 	IEnumerator ChangeSuit(int newSuit)
     {
-		// wait 0.5 seconds
+		// wait 0.75 seconds
 		yield return new WaitForSeconds(0.75f);
 
 		// tell the LastCardManager what the new suit is

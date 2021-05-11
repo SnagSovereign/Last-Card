@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Linq;
+﻿using System.Linq;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -8,7 +7,7 @@ public class PickupDeck : MonoBehaviour {
 	[SerializeField] DiscardPile discardPile;
 
 	// Empty list of cards that will be filled in GenerateDeck()
-	List<Card> pickupDeck = new List<Card>();
+	List<Card> pickupDeck = new List<Card>(52);
 
 	public Card PickupCard()
     {
