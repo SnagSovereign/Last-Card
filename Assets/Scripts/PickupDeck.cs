@@ -34,6 +34,7 @@ public class PickupDeck : MonoBehaviour {
 	public void GenerateDeck()
     {
 		Card newCard;
+
         for (int value = 1; value <= 13; value++)
         {
             for (int suit = 0; suit <= 3; suit++)
@@ -69,12 +70,14 @@ public class PickupDeck : MonoBehaviour {
 
 	public void DealCards(List<Player> players)
     {
+		//loop through each player
 		foreach (Player player in players)
 		{
+			// Add 5-8 cards to the players hand
 			for (int card = 0; card < PlayerPrefs.GetInt("cards"); card++)
 			{
-                player.AddCard(pickupDeck[pickupDeck.Count - 1]);
-                pickupDeck.RemoveAt(pickupDeck.Count - 1);
+                player.AddCard(pickupDeck[pickupDeck.Count - 1]); // add card to hand
+                pickupDeck.RemoveAt(pickupDeck.Count - 1); // remove card from pickup deck
             }
 		}
 

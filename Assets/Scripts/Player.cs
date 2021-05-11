@@ -162,8 +162,18 @@ public abstract class Player : MonoBehaviour {
         }
 		else if(card.value == 10)
         {
-			// Reverse
-			manager.ReversePlayDirection();
+			// if there are only 2 players, the 10 acts as a skip
+			if(manager.GetPlayerCount() == 2)
+            {
+				// Skip
+				manager.Skip();
+			}
+			else
+            {
+				// Reverse
+				manager.ReversePlayDirection();
+			}
+
         }
 		else if(card.value == 11 && (card.suit == 0 || card.suit == 3))
         {
@@ -207,10 +217,10 @@ public abstract class Player : MonoBehaviour {
 			// Only valid cards to play are a Jack (black or red)
 			CalcValidCards(11);
 		}
-		else if(manager.skip) // 8
+		else if(manager.CheckSkip()) //8
 		{
-            // Skip
-            manager.skip = false;
+            // If the last card played was skip and no one else has been skipped yet
+            manager.Skip();
 			EndTurn();
 		}
 		else

@@ -5,6 +5,7 @@ using TMPro;
 
 public class LastCardManager : MonoBehaviour {
 
+	// Object references
 	[SerializeField] List<Player> players;
 	[SerializeField] PickupDeck pickupDeck;
 	[SerializeField] GameObject playDirectionArrows;
@@ -12,23 +13,28 @@ public class LastCardManager : MonoBehaviour {
 	[SerializeField] GameObject gameOverPanel;
 	[SerializeField] TMP_Text gameOverText;
 
-	int playDirection = 1;
 	int currentPlayerTurn = 0;
+	int playDirection = 1; // 1 = clockwise & -1 = anticlockwise
 
+	// Skip boolean ensures that the game does not infinitely skip all players after an 8 is played
+	bool skip = false;
+
+	// Pickup Count keeps track of how many cards a player must pick up
 	int pickupCount = 0;
-	[HideInInspector]
-	public bool skip = false;
+
+	// This suit variable is only checked if the previous card was an Ace
 	int suit;
 
 	private void Start()
     {
+		// time scale set to 1 in case the user pauses the game, quits, then plays again
 		Time.timeScale = 1f;
 		SetupGame();
 	}
 
 	private void SetupGame()
     {
-		ConfigurePlayers();
+		SetNumOfPlayers();
 		pickupDeck.GenerateDeck();
 		pickupDeck.ShuffleDeck();
 		pickupDeck.DealCards(players);
@@ -37,32 +43,40 @@ public class LastCardManager : MonoBehaviour {
 		players[currentPlayerTurn].StartTurn();
 	}
 
-	private void ConfigurePlayers()
+	private void SetNumOfPlayers()
     {
 		if(PlayerPrefs.GetInt("players") == 2)
         {
+			// destroy and remove the left player
             Destroy(players[1].gameObject);
             players.RemoveAt(1);
 
+			// destroy and remove the right player
             Destroy(players[2].gameObject);
             players.RemoveAt(2);
+
+			// disable the play direction arrows because they are unnecessary with 2 players
+			playDirectionArrows.SetActive(false);
         }
 		else if(PlayerPrefs.GetInt("players") == 3)
         {
+			// destroy and remove the top player
 			Destroy(players[2].gameObject);
 			players.RemoveAt(2);
 		}
 	}
 
-	public void GameOver()
+	public void GameOver() // this method is called when a player has 0 cards
     {
 		gameOverPanel.SetActive(true);
+
+		// if the player who won is the user
 		if(currentPlayerTurn == 0)
         {
 			// You win
 			gameOverText.text = "You Win!";
         }
-		else
+		else // an AI won the game
         {
 			// You lose
 			gameOverText.text = "You Lose!";
@@ -71,25 +85,28 @@ public class LastCardManager : MonoBehaviour {
 
 	public void NextPlayer()
 	{
-		print("NEXT PLAYER");
-
+		// set the current player to the next player
 		currentPlayerTurn = GetNextPlayer();
 
 		// tell the current player that it is their turn
 		players[currentPlayerTurn].StartTurn();
 	}
 
-	int GetNextPlayer()
+	private int GetNextPlayer()
 	{
 		// calculate the next player by adding the play direction (1 or -1)
 		int nextPlayer = currentPlayerTurn + playDirection;
 
+		// if the next player has gone too low
 		if(nextPlayer < 0)
 		{
+			//loop back to the last player
 			nextPlayer = players.Count - 1;
 		}
+		//if the the next player has gone too hight
 		else if(nextPlayer > players.Count - 1)
 		{
+			// loop back to the first player
 			nextPlayer = 0;
 		}
 
@@ -102,7 +119,7 @@ public class LastCardManager : MonoBehaviour {
 		playDirectionArrows.transform.localScale = new Vector3
 		(
 			1f, 
-			playDirectionArrows.transform.localScale.y * -1f, 
+			playDirectionArrows.transform.localScale.y * -1f, // flip the playdirection arrows
 			1f
 		);
 	}
@@ -122,9 +139,14 @@ public class LastCardManager : MonoBehaviour {
 		pickupCount = 0;
     }
 
-	public void Skip()
+	public void Skip() // method is called to alternate the value of skip
     {
-		skip = true;
+		skip = !skip;
+    }
+
+	public bool CheckSkip()
+    {
+		return skip;
     }
 
 	public void ChangeSuit(int newSuit)
@@ -135,6 +157,11 @@ public class LastCardManager : MonoBehaviour {
 	public int GetSuit()
     {
 		return suit;
+    }
+
+	public int GetPlayerCount()
+    {
+		return players.Count;
     }
 
 	public void PauseButton()
