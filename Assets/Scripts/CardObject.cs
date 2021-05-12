@@ -6,6 +6,7 @@ public class CardObject : MonoBehaviour {
 	[HideInInspector]
 	public Player playerParent;
 
+
 	public void SetValueAndSuit(Card card)
 	{
 		thisCard.value = card.value;

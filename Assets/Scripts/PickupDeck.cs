@@ -34,8 +34,10 @@ public class PickupDeck : MonoBehaviour {
     {
 		Card newCard;
 
+		// loop through all the values (1 to 13)
         for (int value = 1; value <= 13; value++)
         {
+			//loop through all the suits (0 to 3)
             for (int suit = 0; suit <= 3; suit++)
             {
 				newCard.value = value;
@@ -80,14 +82,18 @@ public class PickupDeck : MonoBehaviour {
             }
 		}
 
-		// add card to discard pile that is not a power card
 		int[] powerCards = { 1, 2, 8, 10, 11 };
 
+		//start looping through the pickup deck
         for (int cardIndex = pickupDeck.Count - 1; cardIndex > 0; cardIndex--)
 		{
-			if(!powerCards.Contains(pickupDeck[cardIndex].value))
+			// if the card is not a power card
+			if (!powerCards.Contains(pickupDeck[cardIndex].value))
             {
-				FindObjectOfType<DiscardPile>().Discard(pickupDeck[cardIndex]);
+				// add the card to the discard pile
+				discardPile.Discard(pickupDeck[cardIndex]);
+
+				// remove the card from the pickup deck
 				pickupDeck.RemoveAt(cardIndex);
 				break;
 			}

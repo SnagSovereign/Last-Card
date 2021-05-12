@@ -5,7 +5,6 @@ public abstract class Player : MonoBehaviour {
 
 	[HideInInspector]
 	public bool myTurn = false;
-	protected bool pickedUp = false;
 
 	protected LastCardManager manager;
 	protected DiscardPile discardPile;
@@ -14,6 +13,7 @@ public abstract class Player : MonoBehaviour {
 	protected List<CardObject> hand = new List<CardObject>();
 	public List<Card> validCards = new List<Card>();
 
+	// this method is called when an Ace is played
 	protected abstract void SelectSuit();
 
 	private void Awake()
@@ -42,6 +42,12 @@ public abstract class Player : MonoBehaviour {
         }
 		else
         {
+			// if player has their last card
+			if(hand.Count == 1)
+            {
+				// audio and visual cues would go here
+            }
+
 			// continue the game
 			manager.NextPlayer();
 		}
@@ -83,6 +89,7 @@ public abstract class Player : MonoBehaviour {
 		// destroy the gameobject
 		Destroy(cardToDiscard.gameObject);
 
+		//if the card being discarded is not an Ace
         if (discardPile.GetTopCard().value != 1)
         {
 			EndTurn();
@@ -96,51 +103,43 @@ public abstract class Player : MonoBehaviour {
 
 		Card discard = discardPile.GetTopCard();
 
-		// if the previous card was an offensive power card
-		if(powerCard != 0)
-        {
-			// if the prevous card was an Ace
-			if (powerCard == 1)
-			{
-				foreach (CardObject card in hand)
-				{
-					if (card.GetCard().suit == manager.GetSuit() || card.GetCard().suit == 1)
-					{
-						validCards.Add(card.GetCard());
-					}
-				}
-			}
-			else // if the previous card was a 2 or Black Jack
-			{
-				foreach (CardObject card in hand)
-				{
-					if (card.GetCard().value == powerCard)
-					{
-						validCards.Add(card.GetCard());
-					}
-				}
-				if(validCards.Count == 0)
-                {
-					for(int pickedUp = 0; pickedUp < manager.GetPickupCount(); pickedUp++)
-                    {
-						AddCard(pickupDeck.PickupCard());
-                    }
-					pickedUp = true;
-					manager.ResetPickupCount();
-					EndTurn();
-                }
-			}
-        }
-		else // the previous card was not an offensive power card
+		// if the previous card was not an offensive power card
+		if(powerCard == 0)
         {
 			foreach (CardObject card in hand)
 			{
-				if (card.GetCard().value == discard.value || 
-					card.GetCard().suit == discard.suit || 
-					card.GetCard().value == 1)
+				// valid cards must match the value and suit of the previous card
+				if (card.GetCard().value == discard.value ||
+					card.GetCard().suit == manager.GetSuit() ||
+					card.GetCard().value == 1) // An Ace can be played regardless of previous suit
 				{
 					validCards.Add(card.GetCard());
 				}
+			}
+		}
+		else // if the previous card was a 2 or a Black Jack
+        {
+			// loop through all the players cards
+			foreach (CardObject card in hand)
+			{
+				// the only valid cards are a 2 or Jack
+				if (card.GetCard().value == powerCard)
+				{
+					validCards.Add(card.GetCard());
+				}
+			}
+
+			// if the player does not have any valid cards to defend against a 2 or Black Jack
+			if (validCards.Count == 0)
+			{
+				// the player is forced to pickup
+				for (int pickedUp = 0; pickedUp < manager.GetPickupCount(); pickedUp++)
+				{
+					AddCard(pickupDeck.PickupCard());
+				}
+
+				manager.ResetPickupCount();
+				EndTurn();
 			}
 		}
 	}
@@ -196,24 +195,17 @@ public abstract class Player : MonoBehaviour {
 
 	void CheckForPowerCard()
     {
-		if(discardPile.GetTopCard().value == 1) // Ace
-        {
-			// only valid cards are ones that have a suit that matches manager.suit
-			CalcValidCards(1);
-		}
-		else if(discardPile.GetTopCard().value == 2 && manager.GetPickupCount() != 0) // 2
+		if(discardPile.GetTopCard().value == 2 && manager.GetPickupCount() != 0)
 		{
 			//Pickup 2
-			// only valid cards to play is a 2
 			CalcValidCards(2);
 		}
 		else if (discardPile.GetTopCard().value == 11 &&
-			    (discardPile.GetTopCard().suit == 0 ||
-			     discardPile.GetTopCard().suit == 3) &&
+			    (manager.GetSuit() == 0 ||
+			     manager.GetSuit() == 3) &&
 				 manager.GetPickupCount() != 0)
 		{
 			// Black Jack
-			// Only valid cards to play are a Jack (black or red)
 			CalcValidCards(11);
 		}
 		else if(manager.CheckSkip()) //8
@@ -224,7 +216,7 @@ public abstract class Player : MonoBehaviour {
 		}
 		else
         {
-			// if the previous card was not a power card
+			// if the previous card was not an offensive power card
 			CalcValidCards(0);
         }
     }

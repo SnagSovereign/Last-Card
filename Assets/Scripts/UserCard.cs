@@ -23,6 +23,7 @@ public class UserCard : CardObject, IPointerDownHandler {
 		// check if it is the user's turn
 		if(GetComponentInParent<User>().myTurn)
         {
+			// check if the card is valid
 			if(playerParent.validCards.Contains(thisCard))
             {
 				playerParent.Discard(transform.GetSiblingIndex());

@@ -6,17 +6,19 @@ public class User : Player {
 
 	public void PickupButton()
     {
+        // ensures that the user can only pickup on their turn
 		if(myTurn)
         {
 			AddCard(pickupDeck.PickupCard());
 			EndTurn();
         }
     }
-
+    
     protected override void SelectSuit()
     {
         suitSelectPanel.SetActive(true);
     }
+
 
     public void SuitButton(int suit)
     {

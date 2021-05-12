@@ -21,7 +21,6 @@ public class LastCardManager : MonoBehaviour {
 	// Pickup Count keeps track of how many cards a player must pick up
 	int pickupCount = 0;
 
-	// This suit variable is only checked if the previous card was an Ace
 	int suit;
 
 	private void Start()
@@ -118,7 +117,7 @@ public class LastCardManager : MonoBehaviour {
 		playDirectionArrows.transform.localScale = new Vector3
 		(
 			1f, 
-			playDirectionArrows.transform.localScale.y * -1f, // flip the playdirection arrows
+			playDirection, // flip the playdirection arrows
 			1f
 		);
 	}

@@ -3657,6 +3657,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 50544cef9c90d314d9fae6450b555378, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  manager: {fileID: 1851040945}
 --- !u!114 &1470870339
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4206,11 +4207,11 @@ MonoBehaviour:
     lineCount: 54
     pageCount: 1
     materialCount: 1
-  m_havePropertiesChanged: 0
+  m_havePropertiesChanged: 1
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_spriteAnimator: {fileID: 0}
-  m_isInputParsingRequired: 0
+  m_isInputParsingRequired: 1
   m_inputSource: 0
   m_hasFontAssetChanged: 0
   m_subTextObjects:
@@ -4648,7 +4649,6 @@ MonoBehaviour:
   pausePanel: {fileID: 1811234091}
   gameOverPanel: {fileID: 805991676}
   gameOverText: {fileID: 1122331635}
-  skip: 0
 --- !u!1 &1913452788
 GameObject:
   m_ObjectHideFlags: 0

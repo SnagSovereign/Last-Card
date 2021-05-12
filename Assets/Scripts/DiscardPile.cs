@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class DiscardPile : MonoBehaviour {
 
+    [SerializeField] LastCardManager manager;
+
 	public List<Card> discardPile = new List<Card>(52);
 
     Image image;
@@ -15,12 +17,13 @@ public class DiscardPile : MonoBehaviour {
 
 	public void Discard(Card card)
     {
-        print(card.value + "_" + card.suit);
         // add the card to the list
         discardPile.Add(card);
+        // change the suit in play
+        manager.ChangeSuit(card.suit);
         image.sprite = Resources.Load<Sprite>("Sprites/Deck/" + card.value + "_" + card.suit);
     }
-
+    
     public Card GetTopCard()
     {
         return discardPile[discardPile.Count - 1];

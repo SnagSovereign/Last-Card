@@ -4,24 +4,23 @@ using UnityEngine;
 public class AI : Player {
 
     protected override void CalcValidCards(int powerCard)
-    {
+	{
         base.CalcValidCards(powerCard);
-
-		if(!pickedUp)
+		
+		// the only time this will be false is if the AI has already
+		// picked up cards from a 2 or Black Jack
+		if(myTurn)
         {
+			// if the AI cannot use any cards
 			if (validCards.Count == 0)
 			{
 				StartCoroutine(Pickup());
 			}
-			else
+			else // the player can use a card
 			{
 				StartCoroutine(UseCard());
 			}
 		}
-		else
-        {
-			pickedUp = false;
-        }
 		
 	}
 
